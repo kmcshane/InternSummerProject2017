@@ -1,10 +1,10 @@
---How to run this file: 
+--How to run this file:
 --Either navigate to its folder, then execute:
--- su - postgres
--- psql -U postgres -d rovdemo -a -f tables_setup.sql
---after user postgres and db rovdemo are created, 
+-- su - user
+-- psql -U user -d rovdemo -a -f tables_setup.sql
+--after user and rovdemo are created, 
 --or from an arbitrary location execute
--- psql -U postgres -d rovdemo -a -f {full path goes here}/tables_setup.sql
+-- psql -U user -d rovdemo -a -f {full path goes here}/tables_setup.sql
 
 --Destroy all previously existing tables and remake
 --the whole database schema.
@@ -25,7 +25,7 @@ CREATE TABLE rovModel(
   dateInserted TIMESTAMP DEFAULT clock_timestamp(),
   depth REAL,
   endurance REAL,
-  lights INT DEFAULT 0,
+  lightNum INT DEFAULT 0,
   mfrName VARCHAR(200) NOT NULL,
   maxLift REAL,
   payload REAL,
@@ -88,4 +88,7 @@ CREATE TABLE tool(
   modelName VARCHAR(200),
   toolType VARCHAR(100)
 );
+
+--Choose a user to "own" the db and do whatever they want with it.
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO zeph;
 
